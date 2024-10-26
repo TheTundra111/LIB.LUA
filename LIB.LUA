@@ -46,8 +46,8 @@ local Section = Tab:AddSection({
 Tab:AddButton({
 	Name = "Toji Main",
 	Callback = function()
-      		loadstring(game:HttpGet('https://pastebin.com/raw/VQnyWP5D'))(
 
+loadstring(game:HttpGet"https://raw.githubusercontent.com/Wi-sp/Limitless-legacy/refs/heads/main/GUI")()
   	end    
 })
 local Tab = Window:MakeTab({
