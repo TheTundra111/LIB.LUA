@@ -1,7 +1,11 @@
 credits below.
+
 Infinite yield - DarkNetworks
+
 anti logger: AnthonyIsntHere
+
 logger: CyrusNeckTie on github 
+
 animation scripts: Nova2Ezz/KenjakuTsb & skibiditoiletfan2007 on github
 
 
