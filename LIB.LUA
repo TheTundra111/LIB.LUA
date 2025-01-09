@@ -75,6 +75,6 @@ end
 Tab:AddButton({
 	Name = "Chat Logger",
 	loadstring(game:HttpGet(('https://gist.githubusercontent.com/CyrusNecktie/5c55a998daa6a358a72342b557a580b9/raw/04d3887a779e4a1f59ad3510523fbcef01a8a2b7/gistfile1.txt'),true))()
-
 end
 })
+end
