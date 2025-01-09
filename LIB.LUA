@@ -14,13 +14,14 @@ OrionLib:MakeNotification({
 	Content = "Tundra loader in progress",
 	Image = "rbxassetid://4483345998",
 	Time = 6
-})
-Tab:AddButton({
-	Name = "Gojo",
+Tab:AddToggle({
+	Name = "gojo test",
+	Default = false,
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/OtherScripts/main/BaldyToSorcerer/latest.lua"))()
-  	end    
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/OtherScripts/main/BaldyToSorcerer/latest.lua"))()
+	end    
 })
+
 local Section = Tab:AddSection({
 	Name = "Goku",
 })
