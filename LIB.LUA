@@ -14,6 +14,7 @@ OrionLib:MakeNotification({
 	Content = "Tundra loader in progress",
 	Image = "rbxassetid://4483345998",
 	Time = 6
+}}
 Tab:AddToggle({
 	Name = "gojo test",
 	Default = false,
