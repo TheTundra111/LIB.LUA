@@ -1,15 +1,15 @@
-local players = game:GetService("Players")
-local player = players.LocalPlayer
-
-local delay = 6
-
-while true do
-    local char = player.Character
-    if char then
-        char:WaitForChild("Humanoid").Died:Wait()
-        wait(6)
-        print("script successful")
-loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/OtherScripts/main/BaldyToSorcerer/latest.lua"))()
-    end
-    wait()
-end
+scriptRunning = Value
+        if scriptRunning then
+            local url = "https://raw.githubusercontent.com/skibiditoiletfan2007/OtherScripts/main/BaldyToSorcerer/latest.lua"
+            runScript(url)
+            local player = game.Players.LocalPlayer
+            onCharacterAdded(player.Character or player.CharacterAdded:Wait(), url)
+            player.CharacterAdded:Connect(function(character)
+                onCharacterAdded(character, url)
+            end)
+        end
+        Rayfield:Notify({
+            Title = "Notification",
+            Content = "Animation activated!",
+            Duration = 6.5,
+            Image = 4483362458,
