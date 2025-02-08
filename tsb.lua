@@ -100,6 +100,30 @@ local Toggle2 = Tab:CreateToggle({
     end,
 })
 
+local Toggle3 = Tab:CreateToggle({
+    Name = "Sans",
+    CurrentValue = false,
+    Flag = "Sans",
+    Callback = function(Value)
+        scriptRunning = Value
+        if scriptRunning then
+            local url = "https://paste.ee/r/rF9d3"
+            runScript(url)
+            local player = game.Players.LocalPlayer
+            onCharacterAdded(player.Character or player.CharacterAdded:Wait(), url)
+            player.CharacterAdded:Connect(function(character)
+                onCharacterAdded(character, url)
+            end)
+        end
+        Rayfield:Notify({
+            Title = "Notification",
+            Content = "Sans script activated.",
+            Duration = 6.5,
+            Image = 4483362458,
+        })
+    end,
+})
+
 local AdminTab = Window:CreateTab("Admin", 4483362458)
 
 local Button2 = AdminTab:CreateButton({
