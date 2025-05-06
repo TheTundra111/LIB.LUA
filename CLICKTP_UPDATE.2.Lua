@@ -24,53 +24,126 @@ local Window = Rayfield:CreateWindow({
     }
 })
 
+local function setupTeleportSound(player)
+    local teleportSound = Instance.new("Sound")
+    teleportSound.SoundId = "rbxassetid://81637394259653"
+    teleportSound.Parent = player.Character
+    return teleportSound
+end
+
+
+local teleportSpeed = 5
+
+local function flashScreen(duration, player, teleportPosition)
+    print("Duration value:", duration)
+
+    local flashGui = Instance.new("ScreenGui", player.PlayerGui)
+    local flashFrame = Instance.new("Frame", flashGui)
+    flashFrame.Size = UDim2.new(1.2, 0, 1.2, 0) 
+    flashFrame.Position = UDim2.new(-0.1, 0, -0.1, 0) 
+    flashFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+    flashFrame.BackgroundTransparency = 1
+
+    local clickSound1 = Instance.new("Sound")
+    clickSound1.SoundId = "rbxassetid://81637394259653"
+    clickSound1.Parent = player.Character
+    clickSound1:Play()
+
+    wait(0.3 / teleportSpeed)
+
+    flashFrame.BackgroundTransparency = 0
+    wait((duration * 2.2) / teleportSpeed)
+
+    if teleportPosition then
+        player.Character:SetPrimaryPartCFrame(teleportPosition)
+    end
+
+    wait(0.2 / teleportSpeed)
+
+    flashFrame.BackgroundTransparency = 1
+    flashGui.Parent = player.PlayerGui
+
+    local clickSound2 = Instance.new("Sound")
+    clickSound2.SoundId = "rbxassetid://81637394259653"
+    clickSound2.Parent = player.Character
+    clickSound2.TimePosition = 0
+    clickSound2:Play()
+
+    wait(0.1 / teleportSpeed)
+    flashGui:Destroy()
+end
+
+local function teleportToMouse(player, mouse, flashDuration)
+    if type(flashDuration) ~= "number" then
+        warn("flashDuration is not a number:", flashDuration)
+        return
+    end
+
+    if mouse.Hit then
+        local teleportPosition = mouse.Hit + Vector3.new(0, 5, 0)
+        flashScreen((flashDuration * teleportSpeed), player, teleportPosition)
+    end
+end
+
+local function setupTeleportSystem()
+    local player = game.Players.LocalPlayer
+    local mouse = player:GetMouse()
+    
+    local flashDuration = 0.2 
+
+    player.CharacterAdded:Connect(function()
+        flashDuration = 0.2 
+    end)
+
+    mouse.KeyDown:Connect(function(key)
+        if key == "t" then
+            teleportToMouse(player, mouse, flashDuration)
+        end
+    end)
+end
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Window = Rayfield:CreateWindow({
+    Name = "Tundra - Universal",
+    Icon = 0,
+    LoadingTitle = "Tundra Loading..",
+    LoadingSubtitle = "by The1stTundra",
+    Theme = "Default",
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false,
+    Discord = {
+        Enabled = false,
+        Invite = "noinvitelink",
+        RememberJoins = true
+    },
+    KeySystem = false,
+    KeySettings = {
+        Title = "Untitled",
+        Subtitle = "Key System",
+        Note = "-",
+        FileName = "Key",
+        SaveKey = true,
+        GrabKeyFromSite = false,
+        Key = {"NoKey"}
+    }
+})
+
 local AdminTab = Window:CreateTab("Admin", 4483362458)
 
 local Button1 = AdminTab:CreateButton({
     Name = "Click Teleport",
     Callback = function()
-        local player = game.Players.LocalPlayer
-        local mouse = player:GetMouse()
-        local teleportSound = Instance.new("Sound")
-        teleportSound.SoundId = "rbxassetid://81637394259653"
-        teleportSound.Parent = player.Character
-        local flashColor = Color3.new(0, 0, 0)
-        local flashDuration = 0.2
-
-        local function flashScreen(duration)
-            local flashGui = Instance.new("ScreenGui", player.PlayerGui)
-            local flashFrame = Instance.new("Frame", flashGui)
-            flashFrame.Size = UDim2.new(1, 0, 1, 0)
-            flashFrame.BackgroundColor3 = flashColor
-            flashFrame.BackgroundTransparency = 0
-            wait(duration)
-            flashFrame.BackgroundTransparency = 1
-            flashGui:Destroy()
-        end
-
-        local function teleportToMouse()
-            if mouse.Hit then
-                teleportSound:Play()
-                flashScreen(flashDuration)
-                player.Character:SetPrimaryPartCFrame(mouse.Hit + Vector3.new(0, 5, 0))
-            end
-        end
-
-        mouse.KeyDown:Connect(function(key)
-            if key == "t" then
-                teleportToMouse()
-            end
-        end)
+        setupTeleportSystem()
     end
 })
 
 local Button2 = AdminTab:CreateButton({
     Name = "IY",
     Callback = function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/DarkNetworks/Infinite-Yield/main/latest.lua'))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
         Rayfield:Notify({
             Title = "Notification",
-            Content = "Loading IY v5...",
+            Content = "Loading IY v6...",
             Duration = 6.5,
             Image = 4483362458,
         })
@@ -109,3 +182,4 @@ local Paragraph = CreditsTab:CreateParagraph({
     Title = "Credits",
     Content = "Infinite Yield - DarkNetworks\nAnti-Logger - AnthonyIsntHere\nLogger - CyrusNeckTie"
 })
+
