@@ -32,7 +32,7 @@ local function setupTeleportSound(player)
 end
 
 
-local teleportSpeed = 20
+local teleportSpeed = 35
 local function flashScreen(duration, player, teleportPosition)
     print("Duration value:", duration)
 
